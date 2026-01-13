@@ -73,5 +73,6 @@
 
     <string name="settings_eink_mode">E-Ink Mode</string>
     <string name="settings_eink_mode_description">Optimizes display for E-Ink screens with high contrast and reduced animations</string>
+    <string name="settings_restart_required">Restart the app for changes to take effect</string>
 
 </resources>

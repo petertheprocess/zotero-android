@@ -56,7 +56,7 @@ internal fun SettingsScreen(
                 is SettingsViewEffect.RestartRequired -> {
                     Toast.makeText(
                         context,
-                        "Restart the app for changes to take effect",
+                        context.getString(R.string.settings_restart_required),
                         Toast.LENGTH_LONG
                     ).show()
                 }

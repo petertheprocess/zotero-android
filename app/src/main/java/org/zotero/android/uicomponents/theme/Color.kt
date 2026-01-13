@@ -228,8 +228,9 @@ fun darkCustomColors(
 
 /**
  * High-contrast E-ink optimized colors.
- * Uses pure black and white for maximum contrast on E-ink displays.
- * Avoids grays that can cause ghosting artifacts on E-ink screens.
+ * Uses primarily black and white for maximum contrast on E-ink displays.
+ * Uses minimal mid-tones only where necessary for UI clarity (disabled states, subtle backgrounds).
+ * The light background with dark text provides best readability on E-ink screens.
  */
 fun einkCustomColors(
     dynamicThemeColors: DynamicThemeColors,

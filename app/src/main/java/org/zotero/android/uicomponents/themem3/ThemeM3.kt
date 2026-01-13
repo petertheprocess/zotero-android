@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import org.zotero.android.uicomponents.CustomUriHandler
+import org.zotero.android.uicomponents.theme.LocalEInkMode
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -304,6 +305,7 @@ fun AppThemeM3(
     isEInkMode: Boolean = false,
     content: @Composable() () -> Unit
 ) {
+  // E-ink mode uses light scheme only as E-ink displays work best with light backgrounds
   val colorScheme = when {
       isEInkMode -> einkScheme
       dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
@@ -321,6 +323,7 @@ fun AppThemeM3(
     content =  {
         CompositionLocalProvider(
             LocalUriHandler provides CustomUriHandler(LocalContext.current),
+            LocalEInkMode provides isEInkMode,
         ) {
             content()
         }
