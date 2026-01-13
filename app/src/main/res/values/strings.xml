@@ -71,5 +71,7 @@
 
     <string name="items_generating_cit">Generating Citation</string>
 
+    <string name="settings_eink_mode">E-Ink Mode</string>
+    <string name="settings_eink_mode_description">Optimizes display for E-Ink screens with high contrast and reduced animations</string>
 
 </resources>

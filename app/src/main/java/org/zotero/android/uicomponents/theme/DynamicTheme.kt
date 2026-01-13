@@ -9,16 +9,19 @@ import androidx.compose.runtime.CompositionLocalProvider
 fun DynamicTheme(
     dynamicThemeColors: DynamicThemeColors = DynamicThemeColors(),
     isDarkTheme: Boolean = isSystemInDarkTheme(),
+    isEInkMode: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colors = createSemanticColors(
         dynamicThemeColors = dynamicThemeColors,
-        isDarkTheme = isDarkTheme
+        isDarkTheme = isDarkTheme,
+        isEInkMode = isEInkMode
     )
 
     CompositionLocalProvider(
         LocalCustomColors provides colors,
         LocalContentColor provides colors.primaryContent,
+        LocalEInkMode provides isEInkMode,
     ) {
         content()
     }

@@ -226,13 +226,80 @@ fun darkCustomColors(
 
 )
 
+/**
+ * High-contrast E-ink optimized colors.
+ * Uses pure black and white for maximum contrast on E-ink displays.
+ * Avoids grays that can cause ghosting artifacts on E-ink screens.
+ */
+fun einkCustomColors(
+    dynamicThemeColors: DynamicThemeColors,
+) = CustomSemanticColors(
+    defaultTextColor = CustomPalette.Black,
+    cardBackground = CustomPalette.White,
+    disabledButtonBackground = Color(0xFFCCCCCC),
+    disabledButtonContent = Color(0xFF666666),
+    disabledContent = Color(0xFF666666),
+    divider = CustomPalette.Black,
+    dynamicTheme = dynamicThemeColors.light.copy(
+        primaryColor = CustomPalette.Black,
+        shadeOne = Color(0xFF333333),
+        shadeTwo = Color(0xFF666666),
+        shadeThree = Color(0xFFCCCCCC),
+        shadeFour = Color(0xFFEEEEEE),
+        highlightColor = CustomPalette.Black,
+        buttonTextColor = CustomPalette.White,
+    ),
+    error = CustomPalette.Black,
+    errorSecondary = Color(0xFFEEEEEE),
+    inputBar = Color(0xFFEEEEEE),
+    isLight = true,
+    primaryContent = CustomPalette.Black,
+    scrim = CustomPalette.Black.copy(alpha = 0.5f),
+    secondaryContent = Color(0xFF333333),
+    surface = CustomPalette.White,
+    uiControl = CustomPalette.Black,
+    windowBackground = CustomPalette.White,
+    zoteroBlueWithDarkMode = CustomPalette.Black,
+    zoteroItemDetailSectionBackground = Color(0xFFF5F5F5),
+    zoteroEditFieldBackground = CustomPalette.White,
+    popupBackgroundTop = Color(0xFFF5F5F5),
+    popupBackgroundContent = CustomPalette.White,
+    popupSelectedRow = Color(0xFFCCCCCC),
+    sortPickerBackground = CustomPalette.White,
+    sortPickerSelected = Color(0xFFCCCCCC),
+    sortPickerUnSelected = Color(0xFFF5F5F5),
+    pdfAnnotationsItemBackground = CustomPalette.White,
+    pdfAnnotationsTopbarBackground = Color(0xFFF5F5F5),
+    pdfAnnotationsFormBackground = Color(0xFFF5F5F5),
+    pdfAnnotationsDividerBackground = CustomPalette.Black,
+    pdfAnnotationsSearchBarBackground = Color(0xFFEEEEEE),
+    libraryDividerBackground = CustomPalette.Black,
+    addNoteBottomBar = Color(0xFFF5F5F5),
+    reorderButtonColor = Color(0xFF666666),
+    dialogBorderColor = CustomPalette.Black,
+    allItemsRowTitleColor = CustomPalette.Black,
+    pdfToolbarBackgroundColor = Color(0xFFF5F5F5),
+    pdfSizePickerColor = Color(0xFF333333),
+    allItemsInfoIconColor = CustomPalette.Black,
+    zoteroDefaultBlue = CustomPalette.Black,
+    topBarBackgroundColor = Color(0xFFF5F5F5),
+    newDividerColor = CustomPalette.Black,
+    popupDividerColor = CustomPalette.Black,
+    pdfEditAnnotationDividerBackground = Color(0xFFCCCCCC),
+    popupBackgroundColor = Color(0xFFEEEEEE),
+    popupRowBackgroundColor = CustomPalette.White,
+    chevronNavigationColor = Color(0xFF333333),
+    quickCopyWebViewBackgroundColor = Color(0xFFF5F5F5),
+)
+
 internal fun createSemanticColors(
     dynamicThemeColors: DynamicThemeColors,
     isDarkTheme: Boolean,
+    isEInkMode: Boolean = false,
 ): CustomSemanticColors {
-    return if (isDarkTheme) {
-        darkCustomColors(dynamicThemeColors)
-    } else {
-        lightCustomColors(dynamicThemeColors)
+    return when {
+        isEInkMode -> einkCustomColors(dynamicThemeColors)
+        isDarkTheme -> darkCustomColors(dynamicThemeColors)
+        else -> lightCustomColors(dynamicThemeColors)
     }
 }

@@ -242,6 +242,48 @@ private val highContrastDarkColorScheme = darkColorScheme(
     surfaceContainerHighest = surfaceContainerHighestDarkHighContrast,
 )
 
+/**
+ * E-ink optimized color scheme with maximum contrast for E-ink displays.
+ * Uses pure black and white to minimize ghosting and improve readability.
+ */
+private val einkScheme = lightColorScheme(
+    primary = primaryEInk,
+    onPrimary = onPrimaryEInk,
+    primaryContainer = primaryContainerEInk,
+    onPrimaryContainer = onPrimaryContainerEInk,
+    secondary = secondaryEInk,
+    onSecondary = onSecondaryEInk,
+    secondaryContainer = secondaryContainerEInk,
+    onSecondaryContainer = onSecondaryContainerEInk,
+    tertiary = tertiaryEInk,
+    onTertiary = onTertiaryEInk,
+    tertiaryContainer = tertiaryContainerEInk,
+    onTertiaryContainer = onTertiaryContainerEInk,
+    error = errorEInk,
+    onError = onErrorEInk,
+    errorContainer = errorContainerEInk,
+    onErrorContainer = onErrorContainerEInk,
+    background = backgroundEInk,
+    onBackground = onBackgroundEInk,
+    surface = surfaceEInk,
+    onSurface = onSurfaceEInk,
+    surfaceVariant = surfaceVariantEInk,
+    onSurfaceVariant = onSurfaceVariantEInk,
+    outline = outlineEInk,
+    outlineVariant = outlineVariantEInk,
+    scrim = scrimEInk,
+    inverseSurface = inverseSurfaceEInk,
+    inverseOnSurface = inverseOnSurfaceEInk,
+    inversePrimary = inversePrimaryEInk,
+    surfaceDim = surfaceDimEInk,
+    surfaceBright = surfaceBrightEInk,
+    surfaceContainerLowest = surfaceContainerLowestEInk,
+    surfaceContainerLow = surfaceContainerLowEInk,
+    surfaceContainer = surfaceContainerEInk,
+    surfaceContainerHigh = surfaceContainerHighEInk,
+    surfaceContainerHighest = surfaceContainerHighestEInk,
+)
+
 @Immutable
 data class ColorFamily(
     val color: Color,
@@ -259,9 +301,11 @@ fun AppThemeM3(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
+    isEInkMode: Boolean = false,
     content: @Composable() () -> Unit
 ) {
   val colorScheme = when {
+      isEInkMode -> einkScheme
       dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
           val context = LocalContext.current
           if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)

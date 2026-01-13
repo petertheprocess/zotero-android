@@ -144,9 +144,10 @@ internal class DashboardActivity : BaseActivity() {
         mainCoroutineScope.launch {
             val wasPspdfkitInitialized = defaults.wasPspdfkitInitialized()
             val collectionDefaultValue = viewModel.getInitialCollectionArgs()
+            val isEInkMode = defaults.isEInkModeEnabled()
 
             setContent {
-                AppThemeM3 {
+                AppThemeM3(isEInkMode = isEInkMode) {
                     Box {
                         val viewState by viewModel.viewStates.observeAsState(DashboardViewState())
                         val viewEffect by viewModel.viewEffects.observeAsState()
