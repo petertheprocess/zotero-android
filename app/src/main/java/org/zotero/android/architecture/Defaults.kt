@@ -72,6 +72,8 @@ open class Defaults @Inject constructor(
     private val webDavScheme = "webDavScheme"
     private val webDavPassword = "webDavPassword"
 
+    private val isEInkModeEnabled = "isEInkModeEnabled"
+
     private val sharedPreferences: SharedPreferences by lazy {
         context.getSharedPreferences(
             sharedPrefsFile,
@@ -391,6 +393,14 @@ open class Defaults @Inject constructor(
         )
             ?: return WebDavScheme.https
         return dataMarshaller.unmarshal(json)
+    }
+
+    fun setEInkModeEnabled(newValue: Boolean) {
+        sharedPreferences.edit { putBoolean(isEInkModeEnabled, newValue) }
+    }
+
+    fun isEInkModeEnabled(): Boolean {
+        return sharedPreferences.getBoolean(isEInkModeEnabled, false)
     }
 
     val currentPerformFullSyncGuard = 1

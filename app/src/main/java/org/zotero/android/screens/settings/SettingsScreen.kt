@@ -1,6 +1,7 @@
 package org.zotero.android.screens.settings
 
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,12 +11,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import org.zotero.android.R
 import org.zotero.android.screens.dashboard.BuildInfo
 import org.zotero.android.screens.settings.elements.NewSettingsDivider
 import org.zotero.android.screens.settings.elements.NewSettingsItem
+import org.zotero.android.screens.settings.elements.NewSettingsSwitchItem
 import org.zotero.android.uicomponents.CustomScaffoldM3
 import org.zotero.android.uicomponents.Strings
 import org.zotero.android.uicomponents.themem3.AppThemeM3
@@ -31,7 +35,9 @@ internal fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     AppThemeM3 {
+        val viewState by viewModel.viewStates.observeAsState(SettingsViewState())
         val viewEffect by viewModel.viewEffects.observeAsState()
+        val context = LocalContext.current
         LaunchedEffect(key1 = viewModel) {
             viewModel.init()
         }
@@ -45,6 +51,14 @@ internal fun SettingsScreen(
 
                 is SettingsViewEffect.OpenWebpage -> {
                     onOpenWebpage(consumedEffect.url)
+                }
+                
+                is SettingsViewEffect.RestartRequired -> {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.settings_restart_required),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -78,6 +92,15 @@ internal fun SettingsScreen(
                 NewSettingsItem(
                     title = stringResource(id = Strings.settings_debug),
                     onItemTapped = toDebugScreen,
+                )
+
+                NewSettingsDivider()
+
+                NewSettingsSwitchItem(
+                    title = stringResource(id = R.string.settings_eink_mode),
+                    description = stringResource(id = R.string.settings_eink_mode_description),
+                    isChecked = viewState.isEInkModeEnabled,
+                    onCheckedChange = viewModel::setEInkModeEnabled,
                 )
 
                 NewSettingsDivider()
